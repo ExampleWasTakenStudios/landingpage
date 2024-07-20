@@ -16,6 +16,8 @@ jobs:
     name: Post initial comment
     runs-on: ubuntu-latest
     if: ${{ github.event.action == 'opened' && github.event.pull_request.draft == false }}
+    permissions:
+      pull-requests: write
     steps:
       - name: Comment Preview Link Placeholder
         uses: thollander/actions-comment-pull-request@v2
