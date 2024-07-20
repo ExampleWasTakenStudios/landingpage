@@ -62,7 +62,7 @@ jobs:
         with:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy dist --project-name=${{ env.CLOUDFLARE_PROJECT_NAME }} --branch=${{ env.CLOUDFLARE_BRANCH_NAME }}
+          command: pages deploy dist --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}" --branch="${{ env.CLOUDFLARE_BRANCH_NAME }}"
       - name: Update Preview Link Comment
         env:
           PREVIEW_LINK: ${{ steps.deploy.outputs.deployment-url }}
