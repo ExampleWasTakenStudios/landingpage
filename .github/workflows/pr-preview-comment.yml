@@ -3,7 +3,6 @@ on:
   pull_request:
     types:
       - opened
-      - synchronize
 
 env:
   COMMENT_TAG: cloudflare_preview_message
@@ -16,7 +15,7 @@ jobs:
   on-pr-opened:
     name: Post initial comment
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.draft == false }}
+    if: ${{ github.event.action == 'opened' && github.event.pull_request.draft == false }}
     permissions:
       pull-requests: write
     steps:
