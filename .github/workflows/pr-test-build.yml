@@ -10,6 +10,8 @@ on:
 env:
   CLOUDFLARE_PROJECT_NAME: landingpage
   CLOUDFLARE_BRANCH_NAME: '#${{ github.event.pull_request.number }} / ${{ github.event.pull_request.title }}'
+  HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+  HEAD_REF: ${{ github.event.pull_request.head.ref }}
 
 jobs:
   lint:
@@ -19,6 +21,9 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          repository: ${{ env.HEAD_REPO }}
+          ref: ${{ env.HEAD_REF }}
       - name: Setup node
         uses: actions/setup-node@v4
       - name: Install dependencies
@@ -32,6 +37,9 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          repository: ${{ env.HEAD_REPO }}
+          ref: ${{ env.HEAD_REF }}
       - name: Setup node
         uses: actions/setup-node@v4
       - name: Install dependencies
@@ -50,6 +58,9 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          repository: ${{ env.HEAD_REPO }}
+          ref: ${{ env.HEAD_REF }}
       - name: Setup node
         uses: actions/setup-node@v4
       - name: Install dependencies
