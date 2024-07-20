@@ -9,8 +9,8 @@ on:
 
 env:
   CLOUDFLARE_PROJECT_NAME: landingpage
-  CLOUDFLARE_BRANCH_NAME: ${{ github.ref_name }}
-    
+  CLOUDFLARE_BRANCH_NAME: '#${{ github.event.pull_request.number }}:${{ github.event.pull_request.title }}'
+
 jobs:
   lint:
     name: Lint
