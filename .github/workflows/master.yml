@@ -7,7 +7,7 @@ on:
 jobs:
   build_and_deploy:
     name: Build and deploy landingpage
-    if: github.repository_owner == 'ExampleWasTaken-Studios'
+    if: github.repository_owner == 'ExampleWasTakenStudios'
     runs-on: 'ubuntu-latest'
     steps:
       - name: Checkout source
