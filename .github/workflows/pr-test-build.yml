@@ -45,6 +45,8 @@ jobs:
     needs:
       - lint
       - build
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
