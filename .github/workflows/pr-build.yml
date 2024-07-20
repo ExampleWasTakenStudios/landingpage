@@ -1,0 +1,73 @@
+name: PR Tests & Build
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+
+env:
+  IS_DRAFT: ${{ github.event.pull_request.draft }}
+  CLOUDFLARE_PROJECT_NAME: landingpage
+  CLOUDFLARE_BRANCH_NAME: ${{ github.ref_name }}
+    
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    if: ${{ env.IS_DRAFT == false }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: ${{ env.IS_DRAFT == false }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    if: ${{ env.IS_DRAFT == false }}
+    needs:
+      - lint
+      - build
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Deploy
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: pages deploy dist --project-name=${{ env.CLOUDFLARE_PROJECT_NAME }} --branch=${{ env.CLOUDFLARE_BRANCH_NAME }}
+      - name: Update Preview Link Comment
+        env:
+          PREVIEW_LINK: ${{ steps.deploy.outputs.deployment-url }}
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          comment_tag: cloudflare_preview_message
+          message: |
+            **PR Preview**
+            |                Name                 |                  Preview                 |
+            | ----------------------------------- | ---------------------------------------- |
+            | `${{ env.CLOUDFLARE_BRANCH_NAME }}` | [Visit Preview](${{ env.PREVIEW_LINK }}) |
