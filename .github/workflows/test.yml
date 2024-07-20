@@ -1,0 +1,17 @@
+name: TEST
+
+on:
+  pull_request:
+    types:
+      - synchronize
+
+
+jobs:
+  main:
+    name: Dump
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: dump app.tsx
+        run: cat ""./src/App.tsx"
