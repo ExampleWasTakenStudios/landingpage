@@ -52,6 +52,8 @@ jobs:
         uses: actions/setup-node@v4
       - name: Install dependencies
         run: npm ci
+      - name: Build
+        run: npm run build
       - name: Deploy
         id: deploy
         uses: cloudflare/wrangler-action@v3
