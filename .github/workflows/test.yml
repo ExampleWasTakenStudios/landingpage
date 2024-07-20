@@ -14,4 +14,4 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: dump app.tsx
-        run: cat ""./src/App.tsx"
+        run: cd src && cat ""./src/App.tsx"
