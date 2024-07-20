@@ -16,7 +16,7 @@ jobs:
   on-pr-opened:
     name: Post initial comment
     runs-on: ubuntu-latest
-    if: ${{ github.event.action == 'opened' && github.event.pull_request.draft == false }}
+    if: ${{ github.event.pull_request.draft == false }}
     permissions:
       pull-requests: write
     steps:
