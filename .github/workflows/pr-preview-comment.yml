@@ -3,6 +3,7 @@ on:
   pull_request:
     types:
       - opened
+      - synchronize
 
 env:
   COMMENT_TAG: cloudflare_preview_message
