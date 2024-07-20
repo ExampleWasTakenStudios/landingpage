@@ -7,8 +7,12 @@ import prettierLogo from '/prettier.png';
 
 export const App = () => {
   return (
-    <div className="bg-[#242424] h-screen w-screen flex flex-col justify-center items-center gap-10">
-      <div className="flex flex-row gap-16">
+    <div className="bg-[#242424] min-h-screen min-w-screen py-16 flex flex-col justify-center items-center gap-10">
+      <div className="flex flex-col items-center gap-16 min-[1543px]:flex-row">
+        <div className="flex flex-col gap-10 items-center min-[1543px]:hidden">
+          <h1 className="text-center text-[3.2em] leading-[1.1] font-bold text-white">Simple Vite template.</h1>
+          <p className="text-[#888]">Click the logos to learn more</p>
+        </div>
         <a href="https://vitejs.dev/">
           <img
             src={viteLogo}
@@ -31,7 +35,7 @@ export const App = () => {
           />
         </a>
       </div>
-      <div className="flex flex-row gap-[5rem]">
+      <div className="mt-7 flex flex-col items-center min-[1543px]:flex-row gap-16">
         <a href="https://typescript-eslint.io/">
           <img
             src={typescripteslintLogo}
@@ -42,7 +46,7 @@ export const App = () => {
         <a href="https://tailwindcss.com/">
           <img
             src={tailwindLogo}
-            className="h-[7em] will-change-[filter] transition-[filter,transform] duration-[300ms] hover:drop-shadow-[0_0_2em_#35bef8aa] scale-100 hover:scale-105"
+            className="px-16 h-[7em] will-change-[filter] transition-[filter,transform] duration-[300ms] hover:drop-shadow-[0_0_2em_#35bef8aa] scale-100 hover:scale-105"
             alt="tailwindcss logo"
           />
         </a>
@@ -54,12 +58,15 @@ export const App = () => {
           />
         </a>
       </div>
-      <div className="mt-5 flex flex-col gap-10 items-center">
+      <div className="hidden mt-5 min-[1543px]:flex flex-col gap-10 items-center">
         <hr className="w-[90%] border-b border-[#888]" />
         <h1 className="text-[3.2em] leading-[1.1] font-bold text-white">Vite + React + TypeScript</h1>
         <h2 className="text-[1.5em] leading-[1.1] font-bold text-white">TypeScript-ESLint + tailwindcss + Prettier</h2>
         <p className="text-[#888]">Click the logos to learn more</p>
       </div>
+      <p className="text-[#c2c2c2]">
+        Made with &#x2665;&#xfe0f; by <a href="https://github.com/ExampleWasTakenStudios">ExampleWasTaken</a>
+      </p>
     </div>
   );
 };
