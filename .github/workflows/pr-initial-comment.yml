@@ -2,7 +2,6 @@ name: PR Preview Comment
 on:
   workflow_call:
 
-
 env:
   COMMENT_TAG: cloudflare_preview_message
   MESSAGE: |
@@ -21,4 +20,4 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           comment_tag: ${{ env.COMMENT_TAG }}
-          message: ${{ env.MESSAGE }}             
+          message: ${{ env.MESSAGE }}
