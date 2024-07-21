@@ -1,14 +1,6 @@
 name: PR Semantics
 on:
-  pull_request_target:
-    types:
-      - opened
-      - edited
-      - reopened
-      - synchronize
-      - converted_to_draft
-      - ready_for_review
-      - review_requested
+  workflow_call:
 
 jobs:
   main:
@@ -18,5 +10,3 @@ jobs:
       - uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    

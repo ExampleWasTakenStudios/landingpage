@@ -1,8 +1,6 @@
 name: PR Preview Comment
 on:
-  pull_request_target:
-    types:
-      - opened
+  workflow_call:
 
 env:
   COMMENT_TAG: cloudflare_preview_message
@@ -15,12 +13,9 @@ jobs:
   on-pr-opened:
     name: Post initial comment
     runs-on: ubuntu-latest
-    if: ${{ github.event.action == 'opened' && github.event.pull_request.draft == false }}
-    permissions:
-      pull-requests: write
     steps:
       - name: Comment Preview Link Placeholder
         uses: thollander/actions-comment-pull-request@v2
         with:
           comment_tag: ${{ env.COMMENT_TAG }}
-          message: ${{ env.MESSAGE }}             
+          message: ${{ env.MESSAGE }}
