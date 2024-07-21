@@ -32,3 +32,4 @@ jobs:
     permissions:
       pull-requests: write
     uses: './.github/workflows/pr-deploy.yml'
+    secrets: inherit
