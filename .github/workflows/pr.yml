@@ -1,0 +1,34 @@
+name: PR
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+      - converted_to_draft
+      - ready_for_review
+      - review_requested
+
+env:
+  RUN_TESTS_AND_DEPLOY: ${{ github.event.pull_request.draft == false && github.event.action == opened && github.event.action == reopened && github.event.action == synchronize && github.event.action == ready_for_review }}
+  POST_INITIAL_COMMENT: ${{ github.event.action == 'opened' && github.event.pull_request.draft == false }}
+
+jobs:
+  semantics:
+    name: Semantics
+    uses: './pr-semantics.yml'
+  inital_comment:
+    name: Post Initial Comment
+    if: ${{ env.POST_INITIAL_COMMENT }}
+    uses: './pr-initial-comment.yml'
+  test:
+    name: Test
+    if: ${{ env.RUN_TESTS_AND_DEPLOY }}
+    uses: './pr-test.yml'
+  deploy:
+    name: Deploy
+    needs:
+      - test
+    uses: './pr-deploy.yml'
