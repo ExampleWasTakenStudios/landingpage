@@ -11,21 +11,17 @@ on:
       - ready_for_review
       - review_requested
 
-env:
-  RUN_TESTS_AND_DEPLOY: ${{ github.event.pull_request.draft == false && github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize' || github.event.action == 'ready_for_review' }}
-  POST_INITIAL_COMMENT: ${{ github.event.action == 'opened' && github.event.pull_request.draft == false }}
-
 jobs:
   semantics:
     name: Semantics
     uses: './.github/workflows/pr-semantics.yml'
   inital_comment:
     name: Post Initial Comment
-    if: ${{ env.POST_INITIAL_COMMENT }} == true 
+    if: ${{ github.event.action == 'opened' && github.event.pull_request.draft == false }}
     uses: './.github/workflows/pr-initial-comment.yml'
   test:
     name: Test
-    if: ${{ env.RUN_TESTS_AND_DEPLOY }} == true
+    if: ${{ github.event.pull_request.draft == false && github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize' || github.event.action == 'ready_for_review' }}
     uses: './.github/workflows/pr-test.yml'
   deploy:
     name: Deploy
