@@ -4,6 +4,8 @@ on:
   workflow_call:
 
 env:
+  CLOUDFLARE_PROJECT_NAME: landingpage
+  CLOUDFLARE_BRANCH_NAME: '#${{ github.event.pull_request.number }} / ${{ github.event.pull_request.title }}'
   HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
   HEAD_REF: ${{ github.event.pull_request.head.ref }}
 
