@@ -21,11 +21,11 @@ jobs:
     uses: './.github/workflows/pr-semantics.yml'
   inital_comment:
     name: Post Initial Comment
-    if: ${{ env.POST_INITIAL_COMMENT }}
+    if: ${{ env.POST_INITIAL_COMMENT == true }}
     uses: './.github/workflows/pr-initial-comment.yml'
   test:
     name: Test
-    if: ${{ env.RUN_TESTS_AND_DEPLOY }}
+    if: ${{ env.RUN_TESTS_AND_DEPLOY == true }}
     uses: './.github/workflows/pr-test.yml'
   deploy:
     name: Deploy
