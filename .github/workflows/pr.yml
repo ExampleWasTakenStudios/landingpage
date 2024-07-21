@@ -18,6 +18,8 @@ jobs:
   inital_comment:
     name: Post Initial Comment
     if: ${{ github.event.action == 'opened' && github.event.pull_request.draft == false }}
+    permissions:
+      pull-requests: write
     uses: './.github/workflows/pr-initial-comment.yml'
   test:
     name: Test
@@ -27,4 +29,6 @@ jobs:
     name: Deploy
     needs:
       - test
+    permissions:
+      pull-requests: write
     uses: './.github/workflows/pr-deploy.yml'
