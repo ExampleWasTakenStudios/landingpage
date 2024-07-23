@@ -1,6 +1,12 @@
 name: PR Semantics
 on:
-  workflow_call:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - edited
+      - ready_for_review
+      - review_requested
 
 jobs:
   main:
