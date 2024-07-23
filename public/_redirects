@@ -2,4 +2,6 @@
 
 # Convenience redirects
 /github https://github.com/examplewastaken/ 301
-/gh https://github.com/examplewastaken 301
+/gh https://github.com/examplewastaken/ 301
+/github/* https://github.com/examplewastaken/:splat 301
+/gh/* https://github.com/examplewastaken/:splat 301
