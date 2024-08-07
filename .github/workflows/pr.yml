@@ -58,7 +58,7 @@ jobs:
         with:
           comment_tag: cloudflare_preview_message
           message: |
-            **PR Preview at ${{ steps.get-time.outputs.CURRENT_TIME }}**
+            **PR Preview at ${{ steps.get-time.outputs.CURRENT_TIME }} UTC**
             |                Name                 |                  Preview                 |
             | ----------------------------------- | ---------------------------------------- |
             |  ${{ env.CLOUDFLARE_BRANCH_NAME }}  | [Visit Preview](${{ env.PREVIEW_LINK }}) |
