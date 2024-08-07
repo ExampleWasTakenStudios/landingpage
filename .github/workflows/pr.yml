@@ -14,15 +14,12 @@ env:
 
 jobs:
   lint:
-    name: Lint
     if: ${{ github.event.pull_request.draft == false }}
     uses: 'ExampleWasTakenStudios/workflows/.github/workflows/test-eslint.yml@master'
   prettier:
-    name: Prettier
     if: ${{ github.event.pull_request.draft == false }}
     uses: 'ExampleWasTakenStudios/workflows/.github/workflows/test-prettier.yml@master'
   build:
-    name: Build
     if: ${{ github.event.pull_request.draft == false }}
     uses: ExampleWasTakenStudios/workflows/.github/workflows/build-npm.yml@master
   deploy:
