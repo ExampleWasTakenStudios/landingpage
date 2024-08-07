@@ -33,6 +33,8 @@ jobs:
       - lint
       - prettier
       - build
+    permissions: 
+      pull-requests: write
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@v4
