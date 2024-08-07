@@ -50,7 +50,7 @@ jobs:
           command: pages deploy build --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}" --branch="${{ env.CLOUDFLARE_BRANCH_NAME }}"
       - name: Get Time
         id: get-time
-        run: echo "CURRENT_TIME=$(date -u +"%H:%M:%S %d/%m/%Y")" >> "$GITHUB_OUTPUT"
+        run: echo "CURRENT_TIME=$(date -u +"%d/%m/%Y - %H:%M:%S")" >> "$GITHUB_OUTPUT"
       - name: Update Preview Comment
         env:
           PREVIEW_LINK: ${{ steps.deploy.outputs.deployment-url }}
