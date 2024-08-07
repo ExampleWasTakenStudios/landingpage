@@ -13,22 +13,21 @@ env:
   CLOUDFLARE_BRANCH_NAME: '#${{ github.event.pull_request.number }} / ${{ github.event.pull_request.title }}'
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: ls
-        run: ls
   lint:
+    name: Test
     if: ${{ github.event.pull_request.draft == false }}
     uses: 'ExampleWasTakenStudios/workflows/.github/workflows/test-eslint.yml@master'
+
   prettier:
+    name: Test
     if: ${{ github.event.pull_request.draft == false }}
     uses: 'ExampleWasTakenStudios/workflows/.github/workflows/test-prettier.yml@master'
+
   build:
+    name: Build
     if: ${{ github.event.pull_request.draft == false }}
     uses: ExampleWasTakenStudios/workflows/.github/workflows/build-npm.yml@master
+
   deploy:
     name: Deploy
     if: ${{ github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name }}
@@ -45,8 +44,7 @@ jobs:
         with:
           name: build
           path: build
-      - name: ls
-        run: ls
+
       - name: Deploy
         id: deploy
         uses: cloudflare/wrangler-action@v3
@@ -54,9 +52,11 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: pages deploy build --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}" --branch="${{ env.CLOUDFLARE_BRANCH_NAME }}"
+
       - name: Get Time
         id: get-time
         run: echo "CURRENT_TIME=$(date -u +"%d/%m/%Y - %H:%M:%S")" >> "$GITHUB_OUTPUT"
+
       - name: Update Preview Comment
         env:
           PREVIEW_LINK: ${{ steps.deploy.outputs.deployment-url }}
