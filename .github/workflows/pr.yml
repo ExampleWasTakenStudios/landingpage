@@ -33,7 +33,7 @@ jobs:
       - lint
       - prettier
       - build
-    permissions: 
+    permissions:
       pull-requests: write
     steps:
       - name: Download Artifact
