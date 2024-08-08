@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         purple: '#340064',
+        orange: '#F3613B',
       },
       dropShadow: {
         clockHand: '0 4px 4px rgba(0, 0, 0, 0.25)',
