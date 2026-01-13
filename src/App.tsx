@@ -1,4 +1,4 @@
-import AnimatedClock from './clock/NewClock';
+import AnimatedClock from './clock/Clock';
 
 export const App = () => {
   return (
