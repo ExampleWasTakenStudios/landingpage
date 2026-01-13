@@ -15,19 +15,79 @@ env:
 jobs:
   lint:
     name: Test
+    runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.draft == false }}
-    uses: 'ExampleWasTakenStudios/workflows/.github/workflows/test-eslint.yml@master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint
+        run: pnpm run lint
 
   prettier:
     name: Test
+    runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.draft == false }}
-    uses: 'ExampleWasTakenStudios/workflows/.github/workflows/test-prettier.yml@master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Prettier
+        run: pnpm run prettier:check
 
   build:
     name: Build
+    runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.draft == false }}
     needs: [lint, prettier]
-    uses: ExampleWasTakenStudios/workflows/.github/workflows/build-pnpm.yml@master
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+        
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Project
+        run: pnpm run build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: artifacts
+          if-no-files-found: error
+          overwrite: false
+
 
   deploy:
     name: Deploy
@@ -41,7 +101,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build
-          path: build
+          path: artifacts
 
       - name: Deploy
         id: deploy
