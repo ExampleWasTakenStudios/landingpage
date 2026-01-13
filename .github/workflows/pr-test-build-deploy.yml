@@ -14,7 +14,7 @@ env:
 
 jobs:
   lint:
-    name: Test
+    name: Lint
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.draft == false }}
     steps:
@@ -36,7 +36,7 @@ jobs:
         run: pnpm run lint
 
   prettier:
-    name: Test
+    name: Prettier
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.draft == false }}
     steps:
